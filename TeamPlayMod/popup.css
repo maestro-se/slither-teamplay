@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700&display=swap');
+
+body {
+  margin: 0px;
+}
+
+html,
+body {
+  width: 400px;
+  height: 600px;
+  font-size: 100% !important;
+  font-family: 'Ubuntu', -apple-system, system-ui, sans-serif;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.topspacer {
+  background-color: rgb(43, 43, 43);
+  height: 20px;
+  width: 100%;
+}
+
+.tableWrapper {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+}
+
+.nopad {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.collection {
+  border-radius: 5px;
+}
+
+.chat-container {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 488px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.compose-bar {
+  background-color: rgb(43, 43, 43);
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+  height: 44px;
+}
+
+.compose-bar-hide,
+.compose-bar-show,
+.compose-bar-showfromhide,
+.compose-bar-moveup
+ {
+  -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-duration: 0.365s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.compose-bar-hide {
+  animation-name: composehide;
+  -webkit-animation-name: composehide; /* Safari 4.0 - 8.0 */
+}
+.compose-bar-showfromhide {
+  animation-name: composeshowfromhide;
+  -webkit-animation-name: composeshowfromhide; /* Safari 4.0 - 8.0 */
+}
+.compose-bar-show {
+  animation-name: composeshow;
+  -webkit-animation-name: composeshow; /* Safari 4.0 - 8.0 */
+}
+
+.compose-bar-moveup {
+  animation-name: composemoveup;
+  -webkit-animation-name: composemoveup; /* Safari 4.0 - 8.0 */
+}
+
+.emoji-btn {
+  background-color: transparent;
+  border: 0px;
+  height: 44px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.emoji-btn:hover,
+.emoji-btn:focus {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 1);
+}
+
+.compose-bar-input {
+  width: 100%;
+  border-radius: 11px;
+  background-color: rgba(255, 255, 255, 0.281);
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+.chat-input {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 1);
+  width: 100%;
+  border: 0px;
+  outline: 0;
+}
+
+.compose-bar-center {
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.compose-bar-leading-actions {
+  float: left;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compose-bar-trailing-actions {
+  float: right;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Chat messages CSS */
+.chat-list {
+  padding-left: 10px !important;
+  padding-right: 10px;
+}
+
+.message-data-time,
+.message-data-name {
+  font-size: 0.8em;
+}
+
+.chat .message-data {
+  margin-bottom: 5px;
+}
+
+.chat .message-data-time {
+  color: #a8aab1;
+  padding-left: 6px;
+}
+
+.chat .message {
+  color: white;
+  padding: 8px 10px;
+  line-height: 16px;
+  font-size: 1.2em;
+  border-radius: 7px;
+  margin-bottom: 5px;
+  width: fit-content;
+  position: relative;
+
+  /* Shadow */
+  -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.068);
+  -moz-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.071);
+  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.062);
+}
+
+.chat .my-message {
+  background: #86BB71;
+}
+
+.chat .other-message {
+  background: #94C2ED;
+}
+
+.chat .chat-message {
+  padding: 30px;
+}
+
+.online,
+.offline,
+.me {
+  margin-right: 3px;
+  font-size: 10px;
+}
+
+.online {
+  color: #86BB71;
+}
+
+.offline {
+  color: rgb(135, 135, 135);
+}
+
+.me {
+  color: #94C2ED;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.float-right {
+  float: right;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.hide-compose-bar {
+  transform: translateY(44px);
+}
+
+#modal1 .modal-content {
+  padding: 0px;
+  background-color: rgb(77, 77, 77);
+  overflow-x: hidden;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes composeshow {
+  0% { transform: translateY(-270px) }
+  100% {  transform: translateY(0px) }
+}
+@keyframes composeshow {
+  0% { transform: translateY(-270px) }
+  100% { transform: translateY(0px) }
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes composemoveup {
+  0%   { transform: translateY(0px) }
+  100% {  transform: translateY(-270px) }
+}
+@keyframes composemoveup {
+  0%   { transform: translateY(0px) }
+  100% { transform: translateY(-270px) }
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes composehide {
+  0%   { transform: translateY(0px) }
+  100% {  transform: translateY(44px) }
+}
+@keyframes composehide {
+  0%   { transform: translateY(0px) }
+  100% { transform: translateY(44px) }
+}
+
+@-webkit-keyframes composeshowfromhide {
+  0% { transform: translateY(44px) }
+  100% {  transform: translateY(0px) }
+}
+@keyframes composeshowfromhide {
+  0% { transform: translateY(44px) }
+  100% { transform: translateY(0px) }
+}

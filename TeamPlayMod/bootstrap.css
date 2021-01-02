@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+.friendsLeaderboard {
+    position: absolute;
+    top: 220px;
+    right: 15px;
+    width: 230px;
+    z-index: 9999;
+    color: #fff;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+    opacity: 0.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.scoreDiv {
+    float:right;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.scoreNameDiv {
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.scoreNameDivSOS {
+    color: red;
+}
+
+.scoreNameDivLAG {
+    color: rgb(255, 255, 0);
+}
+
+#myDotDiv {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    float: left;
+    background-color: azure;
+}
+
+/* .nsi { 
+    font-family: 'Roboto Condensed', sans-serif !important;
+} */
+
+.dot {
+    visibility: visible;
+}

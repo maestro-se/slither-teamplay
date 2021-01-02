@@ -1,0 +1,52 @@
+{
+  "name": "Slither TeamPlay",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Have fun with friends.",
+  "author": "https://twitter.com/teamplaym",
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
+  "content_scripts": [{
+    "js": [
+      "inject.js"
+    ],
+    "matches": [
+      "*://slither.io/*"
+    ],
+    "run_at": "document_end",
+    "all_frames": false
+  }],
+  "icons": {
+    "16": "images/icon-16.png",
+    "32": "images/icon-32.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "permissions": [
+    "*://slither.io/*", 
+    "declarativeContent", 
+    "storage",
+    "notifications"
+  ],
+  "content_security_policy": "script-src 'self' https://slitherfriends.herokuapp.com https://twemoji.maxcdn.com; object-src 'self'; connect-src 'self' wss://slitherfriends.herokuapp.com https://slitherfriends.herokuapp.com;",
+  "short_name": "TeamPlay",
+  "web_accessible_resources": [
+    "images/*",
+    "main.js",
+    "bootstrap.css",
+    "popup.css"
+  ],
+  "update_url": "https://slitherfriends.herokuapp.com/webapp/updates.xml",
+  "options_page": "options.html",
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon-16.png",
+      "32": "images/icon-32.png",
+      "48": "images/icon-48.png",
+      "128": "images/icon-128.png"
+    }
+  }
+}

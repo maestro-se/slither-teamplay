@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href='http://fonts.googleapis.com/css?family=Stint+Ultra+Expanded' rel='stylesheet' type='text/css'>
+  <link href="materialize.min.css" rel="stylesheet">
+  <link href="popup.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="topspacer"></div>
+  <div class="row">
+    <div class="col s12 nopad" id="tab_host">
+      <ul class="tabs z-depth-1" id="tabs">
+        <li id="tab_1" class="tab col s3"><a class="active" href="#content_1">CHAT</a></li>
+        <li id="tab_keys" class="tab col s3"><a href="#content_keys">KEYS</a></li>
+      </ul>
+      <div id="content_1" class="s12">
+        <div class="chat chat-container">
+          <ul class="chat-list" id="messages_">
+
+          </ul>
+        </div>
+        <!-- End Chat Container -->
+      </div>
+      <!-- Keys Tab -->
+      <div id="content_keys" class="col s12">
+        <br />
+        <a href="#!" id="add_team_key" class="waves-effect waves-light btn-flat"><i class="material-icons left">directions_run</i>Join a Team</a>
+        <a href="#!" id="create_team" class="waves-effect waves-light btn-flat"><i class="material-icons left">add</i>Create a Team</a>
+        <ul id="authKeysCollection" class="collection with-header">
+        </ul>
+        <ul class="collection with-header">
+          <li class="collection-header"><h6>Test Settings: </h6></li>
+          <li class="collection-item">
+            <div>
+              Settings 1<a href="#!" class="secondary-content"><div class="switch"><label><input id="botSwitch" type="checkbox"><span class="lever"></span></label></div></a>
+            </div>
+          </li>
+          <li class="collection-item">
+            <div>
+              Settings 2<a href="#!" class="secondary-content"><div class="switch"><label><input id="boostSwitch" type="checkbox"><span class="lever"></span></label></div></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- End Keys Tab -->
+    </div>
+    <div id="composebar" class="compose-bar">
+      <div class="compose-bar-leading-actions"><button id="emojiButton" class="emoji-btn"><i
+            class="material-icons">insert_emoticon</i></button></div>
+      <div class="compose-bar-trailing-actions"><button id="sendButton" class="emoji-btn"><i
+            class="material-icons">send</i></button></div>
+      <div class="compose-bar-center">
+        <div class="compose-bar-input"><input class="browser-default chat-input" type="text" id="chatInput"
+            placeholder="Type a message" /></div>
+      </div>
+    </div>
+  </div>
+  <script src="materialize.min.js"></script>
+  <script src="moment.js"></script>
+  <script src="dixie.js"></script>
+  <script src="db.js"></script>
+  <script src="api.js"></script>
+  <script src="popup.js"></script>
+
+  <!-- Modal Structure -->
+  <div id="modal2" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4 id="model2_header">Modal Header</h4>
+      <div class="input-field col s12">
+        <input value="" id="input_key" type="text" class="validate">
+        <label class="active" for="input_key" id="input_key_label">Enter Auth Key</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" id="key_dialog_add" class="waves-effect waves-light btn-flat"><i class="material-icons left">add</i>Add</a>
+    </div>
+  </div>
+
+  <div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+      <div class="col s12">
+        <ul id="emoji-tabs" class="tabs">
+          <li class="tab col s3"><a class="active" href="#test1">😀</a></li>
+          <li class="tab col s3"><a href="#test2">🐶</a></li>
+          <li class="tab col s3"><a href="#test3">🍎</a></li>
+          <li class="tab col s3"><a href="#test4">⚽️</a></li>
+          <li class="tab col s3"><a href="#test5">🚒</a></li>
+          <li class="tab col s3"><a href="#test6">⚙️</a></li>
+          <li class="tab col s3"><a href="#test7">❤️</a></li>
+          <li class="tab col s3"><a href="#test8">🏳️</a></li>
+        </ul>
+      </div>
+      <div id="test1" class="col s12">
+        <div class="row" id="emojiTab0"></div>
+      </div>
+      <div id="test2" class="col s12">
+        <div class="row" id="emojiTab1"></div>
+      </div>
+      <div id="test3" class="col s12">
+        <div class="row" id="emojiTab2"></div>
+      </div>
+      <div id="test4" class="col s12">
+        <div class="row" id="emojiTab3"></div>
+      </div>
+      <div id="test5" class="col s12">
+        <div class="row" id="emojiTab4"></div>
+      </div>
+      <div id="test6" class="col s12">
+        <div class="row" id="emojiTab5"></div>
+      </div>
+      <div id="test7" class="col s12">
+        <div class="row" id="emojiTab6"></div>
+      </div>
+      <div id="test8" class="col s12">
+        <div class="row" id="emojiTab7"></div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
