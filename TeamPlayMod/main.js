@@ -85,7 +85,6 @@ console.dir({
 
 // use an anonymous function
 docReady(function () {
-  window.eventAdded = false;
   window.TeamPlay = new Main();
 });
 class Main {
@@ -96,6 +95,7 @@ class Main {
     this.eatMeActive = false;
     this.lagActive = false;
     this.gameEndSent = false;
+    this.gameStartSent = false;
 
 
     var observer = new MutationObserver((mutations) => {
@@ -117,7 +117,7 @@ class Main {
 
   // Override the socket connnection to get callbacks
   overrideSocketConnection() {
-    if (window.ws === null || window.ws === undefined || window.eventAdded) {
+    if (window.ws === null || window.ws === undefined) {
       console.dir("Theres nothing to bind");
       return;
     }
@@ -163,7 +163,6 @@ class Main {
               score: snakeLength
             });
             this.gameEndSent = true;
-            window.eventAdded = false;
           } else if ("a" == f) { // Spawned
             this.gameId = this.uuidv4();
             console.log("Spawned");
@@ -177,11 +176,13 @@ class Main {
               locationY: 21500
             });
             this.gameEndSent = false;
+            this.gameStartSent = true;
           } else if ("u" == f) { // send updates
             let packetType = "u";
-            if (!this.gameEndSent) {
+            if (!this.gameStartSent) {
               this.gameId = this.uuidv4();
               packetType = "s";
+              this.gameStartSent = true;
             }
             var snakeLength = Math.floor(15 * (window.fpsls[window.snake.sct] + window.snake.fam /
               window.fmlts[window.snake.sct] - 1) - 5);
@@ -205,7 +206,6 @@ class Main {
           }
         }
       }, false)
-      window.eventAdded = true;
     } catch (e) {
       console.error("While adding override event listener, caught ", e);
     }
@@ -231,5 +231,8 @@ class Main {
   // Sends an update to backend
   sendUpdate(p) {
     window.postMessage(p, "*");
+    if (p.type === 'e') {
+      this.gameStartSent = false;
+    }
   }
 }

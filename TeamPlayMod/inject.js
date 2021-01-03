@@ -10,7 +10,7 @@
       // if (!connected) {
       //   connectBackground();
       // }
-      console.dir(event.data);
+      // console.dir(event.data);
       chrome.runtime.sendMessage(event.data);
       if (event.data.type === "s") {
         self.ground = event.data.grd;
@@ -193,9 +193,17 @@ function initializeUI() {
 }
 
 function showFriends(friends) {
-  removeFriendScore();
-  for (friend of friends) {
-    updateScore(friend);
-    updateMap(friend);
+  if (window.onFriends) {
+    window.onFriends(friends);
+  } else {
+    removeFriendScore();
+    for (friend of friends) {
+      updateScore(friend);
+      updateMap(friend);
+    }
   }
+}
+
+window.onFriends = (friends) => {
+  console.dir(friends);
 }
