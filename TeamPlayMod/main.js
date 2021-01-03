@@ -86,6 +86,7 @@ console.dir({
 // use an anonymous function
 docReady(function () {
   window.TeamPlay = new Main();
+
 });
 class Main {
   constructor() {
@@ -114,12 +115,16 @@ class Main {
     };
     observer.observe(this.login, config);
 
-    // setTimeout( () => {
-    //   new Crate({
-    //     server: '795087644756279336',
-    //     channel: '795087748548788265'
-    //   })
-    // }, 1000);
+    window.addEventListener("message", (event) => {
+      if (event.data.friends) {
+        let friends = event.data.friends;
+        this.showFriends(friends);
+      }
+    }, false);
+
+    setTimeout(() => {
+      this.initUI();
+    }, 1000);
   }
 
   // Override the socket connnection to get callbacks
@@ -184,7 +189,7 @@ class Main {
             });
             this.gameEndSent = false;
             this.gameStartSent = true;
-          } else if ("u" == f) { // send updates
+          } else if ("u" == f || "l" == f) { // send updates
             let packetType = "u";
             if (!this.gameStartSent) {
               this.gameId = this.uuidv4();
@@ -238,9 +243,158 @@ class Main {
 
   // Sends an update to backend
   sendUpdate(p) {
+    p.dotX = 40;
+    p.dotY = 40;
+    
     window.postMessage(p, "*");
     if (p.type === 'e') {
       this.gameStartSent = false;
     }
+  }
+
+  initUI() {
+    let mapDiv = null;
+    let mapCanvas = null;
+    var nsidivs = document.getElementsByClassName("nsi");
+    for (var i = 0; i < nsidivs.length; i++) {
+      //console.log(nsidivs[i].style);
+      if (nsidivs[i].style.zIndex == 10) {
+        mapDiv = nsidivs[i];
+      } else if (nsidivs[i].style.zIndex == 12) {
+        mapCanvas = nsidivs[i];
+      } else if (nsidivs[i].style.zIndex == 100) {
+        this.dotDiv = nsidivs[i];
+      }
+    }
+
+    if (mapDiv !== null && mapCanvas !== null) {
+      this.mapDiv = document.createElement("div");
+      this.mapDiv.className = "dotDiv";
+      mapDiv.appendChild(this.mapDiv);
+    }
+
+    var divFriendsLeaderboard = document.createElement("div");
+    divFriendsLeaderboard.id = "friendsLeaderboard";
+    divFriendsLeaderboard.className = "friendsLeaderboard";
+
+    document.body.appendChild(divFriendsLeaderboard);
+    this.divFriendsLeaderboard = divFriendsLeaderboard;
+
+    window.Y.ys = (el) => { }
+
+    window.Y.La = (boolean) => { }
+  }
+
+  showFriends(friends) {
+    // let dots = this.mapDiv.querySelectorAll("img.dot");
+    // for (let dot of dots) {
+    //   dot.parentNode.removeChild( dot );
+    // }
+    this.divFriendsLeaderboard.innerHTML = '';
+    this.mapDiv.innerHTML = '';
+
+    for (let friend of friends) {
+      if (friend.gameId == this.gameId || !(friend.serverIP === window.bso.ip && friend.port === window.bso.po)) {
+        continue;
+      }
+      this.updateScore(friend)
+      this.updateMap(friend)
+    }
+  }
+
+  updateMap(friend) {
+    
+    var img = document.getElementById(friend.nickname);
+    if (img == null) {
+      img = document.createElement("div");
+      this.mapDiv.appendChild(img);
+    }
+
+    var dotHeight = 10;
+
+    let grd = window.grd;
+    let width = parseInt(this.mapDiv.style.width);
+
+    if (width < 1) {
+      return;
+    }
+
+    let x = Math.round(52 * window.Y.nA + 40 * window.Y.nA * (friend.locationX - grd) / grd - 7);
+    let y = Math.round(52 * window.Y.nA + 40 * window.Y.nA * (friend.locationY - grd) / grd - 7);
+
+    // console.log(x, y);
+
+    img.style.position = "absolute";
+    img.style.left = x + "px";
+    img.style.top = y + "px";
+    img.style.background = friend.dotColor;
+    img.style.height = dotHeight + "px";
+    img.style.width = dotHeight + "px";
+    img.style.borderRadius = "50%";
+    img.id = friend.nickname;
+    img.className = "dot";
+
+    if (friend.sosActive) {
+      img.style.background = "#ff0000";
+    }
+  }
+
+  updateScore(friend) {
+    var friendsLeaderboard = document.getElementById('friendsLeaderboard');
+    var _scoreNameDiv = document.getElementById("score_name_" + friend.nickname);
+    var _scoreDiv = document.getElementById("score_" + friend.nickname);
+
+    if (_scoreDiv == null) {
+      _scoreDiv = document.createElement("div");
+      _scoreDiv.className = "scoreDiv";
+      _scoreDiv.id = "score_" + friend.nickname;
+      friendsLeaderboard.appendChild(_scoreDiv);
+    }
+    var cssName = "scoreNameDiv";
+    var additions = "";
+    if (friend.isBotEnabled) {
+      additions = additions + "BOT ";
+      cssName = "scorenameDivBot";
+    }
+
+    if (friend.eatMeActive) {
+      additions = additions + "EATME ";
+      cssName = "scoreNameDivEATME";
+    }
+
+    if (friend.foodAvailable) {
+      additions = additions + "FOOD ";
+      cssName = "scoreNameDivFood";
+    }
+
+    if (friend.sosActive) {
+      additions = additions + "SOS ";
+      cssName = "scoreNameDivSOS";
+    }
+
+    if (friend.lagActive) {
+      additions = additions + "LAG :/ ";
+      cssName = "scoreNameDivLAG";
+    }
+
+    var showFriendsIP = true;
+    if (showFriendsIP === undefined || showFriendsIP === null || showFriendsIP === "No") {
+      //do nothing
+    } else {
+      let server = "Y.jo(\"" + friend.serverIP + ":" + friend.port + "\")";
+      additions = additions + "<br />" + "<a class='friendip' href= '#!' onclick='" + server + "'>" + friend.serverIP + "</a>";
+    }
+
+    if (_scoreNameDiv == null) {
+      _scoreNameDiv = document.createElement("div");
+      _scoreNameDiv.className = cssName;
+      _scoreNameDiv.id = "score_name_" + friend.nickname;
+      friendsLeaderboard.appendChild(_scoreNameDiv);
+    }
+
+    var dotDiv = "<div style='float:left;margin:2px;border-radius: 50%;width: 10px;height: 10px;background:" + friend.dotColor + ";border:black;'></div>";
+
+    _scoreDiv.innerHTML = friend.score;
+    _scoreNameDiv.innerHTML = dotDiv + "<div>" + friend.nickname + ": " + additions + "</div>";
   }
 }

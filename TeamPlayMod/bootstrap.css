@@ -44,4 +44,19 @@
 
 .dot {
     visibility: visible;
+    z-index: 101;
+    border-radius: 50%;
+    opacity: 1;
+    border: 1px solid white;
+}
+
+.friendip {
+    text-decoration: underline;
+}
+
+.dotDiv {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
 }

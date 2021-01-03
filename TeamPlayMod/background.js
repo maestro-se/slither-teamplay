@@ -145,14 +145,7 @@ class BackgroundController {
    */
   async writeLocationPacket(p) {
     let friends = await window.API.writeLocationPacket(p);
-    friends.forEach((friend) => {
-      let index = this.allFriends.findIndex(t => t.gameId === friend.gameId);
-      if (index === -1) {
-        this.allFriends.push(friend);
-      } else {
-        this.allFriends[index] = friend;
-      }
-    });
+    this.allFriends = friends;
   }
 
   /**
