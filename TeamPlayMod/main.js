@@ -113,6 +113,13 @@ class Main {
       subtree: false
     };
     observer.observe(this.login, config);
+
+    // setTimeout( () => {
+    //   new Crate({
+    //     server: '795087644756279336',
+    //     channel: '795087748548788265'
+    //   })
+    // }, 1000);
   }
 
   // Override the socket connnection to get callbacks
@@ -200,6 +207,7 @@ class Main {
               port: window.bso.po,
               gameId: this.gameId,
               kills: this.kills,
+              grd: window.grd,
               type: "u"
             };
             this.sendUpdate(packet);

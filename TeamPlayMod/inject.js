@@ -11,6 +11,11 @@
       //   connectBackground();
       // }
       // console.dir(event.data);
+
+      if (event.data.grd) {
+        self.ground = event.data.grd;
+      }
+
       chrome.runtime.sendMessage(event.data);
       if (event.data.type === "s") {
         self.ground = event.data.grd;
@@ -165,11 +170,14 @@ function updateMap(friend) {
       mapDiv.appendChild(img);
     }
 
-    var dotHeight = 14;
+    var dotHeight = 5;
+
+    let grd = self.ground;
+    console.log(grd);
 
     img.style.position = "absolute";
-    img.style.left = Math.round(52 + 40 * (friend.locationX - self.ground) / self.ground - (dotHeight / 2)) + "px";
-    img.style.top = Math.round(52 + 40 * (friend.locationY - self.ground) / self.ground - (dotHeight / 2)) + "px";
+    img.style.left = Math.round( (52 * 1) + (40 * 1) * (friend.locationX - grd)/ grd - (dotHeight / 2) ) + "px";
+    img.style.top = Math.round( (52 * 1) + (40 * 1) * (friend.locationY - grd) / grd - (dotHeight / 2) ) + "px";
     // img.style.left = Math.round(52 * Y.nA + 40 * Y.nA * (snake.xx - self.ground) / self.ground - 7) + "px";
     // img.style.top = Math.round(52 * Y.nA + 40 * Y.nA * (snake.yy - self.ground) / self.ground - 7) + "px";
     img.style.opacity = 1;
