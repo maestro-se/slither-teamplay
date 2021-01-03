@@ -31,6 +31,10 @@
   function myMain(evt) {
     chrome.storage.local.get(null, function (output) {
       if (output["enabled"] == "true" || output["enabled"] == null || output["enabled"] == undefined) {
+        let crateJS = document.createElement("SCRIPT");
+        crateJS.src = chrome.extension.getURL("c.js");
+        document.getElementsByTagName('head')[0].appendChild(crateJS);
+
         var mainScript = document.createElement("SCRIPT");
         mainScript.src = chrome.extension.getURL("main.js");
         document.getElementsByTagName('head')[0].appendChild(mainScript);
@@ -121,7 +125,7 @@ function updateScore(friend) {
     cssName = "scoreNameDivLAG";
   }
 
-  var showFriendsIP = window.localStorage.getItem("showFriendsIP");
+  var showFriendsIP = true;
   if (showFriendsIP === undefined || showFriendsIP === null || showFriendsIP === "No") {
     //do nothing
   } else {
@@ -202,8 +206,4 @@ function showFriends(friends) {
       updateMap(friend);
     }
   }
-}
-
-window.onFriends = (friends) => {
-  console.dir(friends);
 }
